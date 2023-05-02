@@ -77,71 +77,42 @@ np.savetxt("fft.txt", fft_data, delimiter=",", header="Frequency,Amplitude")
 
 fig, axs = plt.subplots(2, 2, figsize=(12, 9), dpi=100)
 
-axs[0, 0].plot(x, y * 1000, '-', linewidth=2.0, label='FeGe', color="black")
-axs[0, 0].plot(x_inter, y_smooth * 1000, '--', label='Smoothed', color="red", linewidth=2.0)
-axs[0, 0].tick_params(labelsize=14)
-axs[0, 0].legend(prop={'size': 14})
-axs[0, 0].set_xlabel('$\mu_{0}\mathrm{H(T)}$', fontsize=16)
-#axs[0, 0].set_ylabel('$\mathrm{R_{xx}(m\Omega})$', fontsize=16)
-axs[0, 0].set_ylabel('$\mathrm{M(m emu})$', fontsize=16)
-axs[0, 0].spines['top'].set_linewidth(1.5)
-axs[0, 0].spines['bottom'].set_linewidth(1.5)
-axs[0, 0].spines['left'].set_linewidth(1.5)
-axs[0, 0].spines['right'].set_linewidth(1.5)
-axs[0, 0].tick_params(direction='in', width=1.5)
-axs[0, 0].text(-0.1, 1.0, '(a)', transform=axs[0, 0].transAxes,
+a11=[axs[0,0],'(a)',x, y * 1000, '-','FeGe',"black",'$\mu_{0}\mathrm{H(T)}$','$\mathrm{M(m emu})$']#磁化强度
+a12=[axs[0,0],'(a)',x, y * 1000, '-','FeGe',"black",'$\mu_{0}\mathrm{H(T)}$','$\mathrm{R_{xx}(m\Omega})$']#电阻
+a21=[axs[0,0],'',x_inter, y_smooth * 1000, '--','Smoothed',"red","",""]#平滑
+b11=[axs[0,1],'(b)',x_inter, y_diff*1000000,'-','','black','$\mu_{0}H\mathrm{(T)}$','$\mathrm{\Delta M(\mu emu)}$']#磁场Δ磁化强度
+b12=[axs[0,1],'(b)',x_inter, y_diff*1000000,'-','','black','$\mu_{0}H\mathrm{(T)}$','$\mathrm{\Delta R_{xx}(\mu\Omega)}$']#磁场Δ电阻
+c11=[axs[1,0],'(c)',x_inv, y_diff*1000000,'-','','black','$1/\mu_{0}H\mathrm{(T^{-1})}$','$\mathrm{\Delta M(\mu emu)}$']#1/磁场Δ磁化强度
+c12=[axs[1,0],'(c)',x_inv, y_diff*1000000,'-','','black','$1/\mu_{0}H\mathrm{(T^{-1})}$','$\mathrm{\Delta R_{xx}(\mu\Omega)}$']#1/磁场Δ电阻
+d11=[axs[1,1],'(d)',freq, amp*1000,'-','', 'black','Frequency(T)','FFT Amp. (arb.units)',[0,3000],[0,6]]#频率幅值
+plots=[a11,a21,b11,c11,d11]
+
+for i in plots:
+    i[0].text(-0.1, 1.0, i[1], transform=i[0].transAxes,
                 va='top', ha='right', fontsize=16, fontweight='bold')
-
-
-axs[0, 1].plot(x_inter, y_diff*1000000,'-', linewidth=2.0, color="black")
-axs[0, 1].tick_params(labelsize=14)
-#axs[0, 1].legend(prop={'size': 14})
-axs[0, 1].set_xlabel('$\mu_{0}H\mathrm{(T)}$', fontsize=16)
-#axs[0, 1].set_ylabel('$\mathrm{\Delta R_{xx}(\mu\Omega)}$', fontsize=16)
-axs[0, 1].set_ylabel('$\mathrm{\Delta M(\mu emu)}$', fontsize=16)
-axs[0, 1].spines['top'].set_linewidth(1.5)
-axs[0, 1].spines['bottom'].set_linewidth(1.5)
-axs[0, 1].spines['left'].set_linewidth(1.5)
-axs[0, 1].spines['right'].set_linewidth(1.5)
-axs[0, 1].tick_params(direction='in', width=1.5)
-
-
-axs[0, 1].text(-0.1, 1.0, '(b)', transform=axs[0, 1].transAxes,
-                va='top', ha='right', fontsize=16, fontweight='bold')
-
-
-axs[1, 0].plot(x_inv, y_diff*1000000,'-', linewidth=2.0, color="black")
-# axs[1, 0].plot(x_inter2, y_inter2)
-axs[1, 0].tick_params(labelsize=14)
-#axs[1, 0].legend(prop={'size': 14})
-axs[1, 0].set_xlabel('$1/\mu_{0}H\mathrm{(T^{-1})}$', fontsize=16)
-#axs[1, 0].set_ylabel('$\mathrm{\Delta R_{xx}(\mu\Omega)}$', fontsize=16)
-axs[1, 0].set_ylabel('$\mathrm{\Delta M(\mu emu)}$', fontsize=16)
-axs[1, 0].spines['top'].set_linewidth(1.5)
-axs[1, 0].spines['bottom'].set_linewidth(1.5)
-axs[1, 0].spines['left'].set_linewidth(1.5)
-axs[1, 0].spines['right'].set_linewidth(1.5)
-axs[1, 0].tick_params(direction='in', width=1.5)
-
-
-axs[1, 0].text(-0.1, 1.0, '(c)', transform=axs[1, 0].transAxes,
-                va='top', ha='right', fontsize=16, fontweight='bold')
-
-
-axs[1, 1].plot(freq, amp*1000,'-', linewidth=2.0, color="black")
-axs[1, 1].set_xlim([0, 3000])
-axs[1, 1].set_ylim([0, 6])
-axs[1, 1].tick_params(labelsize=14)
-axs[1, 1].legend(prop={'size': 14})
-axs[1, 1].set_xlabel('Frequency(T)', fontsize=16)
-axs[1, 1].set_ylabel('FFT Amp. (arb.units)', fontsize=16)
-axs[1, 1].spines['top'].set_linewidth(1.5)
-axs[1, 1].spines['bottom'].set_linewidth(1.5)
-axs[1, 1].spines['left'].set_linewidth(1.5)
-axs[1, 1].spines['right'].set_linewidth(1.5)
-axs[1, 1].tick_params(direction='in', width=1.5)
-axs[1, 1].text(-0.1, 1.0, '(d)', transform=axs[1, 1].transAxes,
-                va='top', ha='right', fontsize=16, fontweight='bold')
+    if i[5]=="":
+        i[0].plot(i[2],i[3],i[4],linewidth=2.0, color=i[6])
+    else:
+        i[0].plot(i[2],i[3],i[4],label=i[5],linewidth=2.0, color=i[6])
+        i[0].legend(prop={'size': 14})
+    i[0].tick_params(labelsize=14)
+    if i[7]!="":
+        i[0].set_xlabel(i[7], fontsize=16)
+    if i[8]!="":
+        i[0].set_ylabel(i[8], fontsize=16)
+    i[0].spines['top'].set_linewidth(1.5)
+    i[0].spines['bottom'].set_linewidth(1.5)
+    i[0].spines['left'].set_linewidth(1.5)
+    i[0].spines['right'].set_linewidth(1.5)
+    i[0].tick_params(direction='in', width=1.5)
+    try:
+        i[0].set_xlim(i[9])
+    except Exception as error:
+        pass
+    try:
+        i[0].set_ylim(i[10])
+    except Exception as error:
+        pass
 plt.tight_layout()
-plt.savefig('FeGe.png', dpi=300, bbox_inches='tight')
+plt.savefig('test.png', dpi=300, bbox_inches='tight')
 plt.show()
