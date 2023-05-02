@@ -26,9 +26,6 @@ def inter(x, y, range, interval):
     intery = np.zeros([x.size, 2])
     intery[:, 0] = x
     intery[:, 1] = fx(x)
-    # plt.plot(m[:,1],m[:,2],intery[:,0],intery[:,1])
-    # plt.show()
-    # print(intery)
     return intery[:, 0], intery[:, 1], internumber
 
 
@@ -38,8 +35,8 @@ def sdhfft_inter(x, y):
     # print(type(Z))
     # print(Z)
     fftx = rfftfreq(len(x), x[1] - x[0])  # 获取傅里叶变换的横坐标(数量，间隔）（生成的数量是N//2)
-    plt.plot(fftx, np.abs(z))
-    plt.show()
+    #plt.plot(fftx, np.abs(z))
+    #plt.show()
     return fftx, np.abs(z)
 
 
@@ -49,10 +46,6 @@ def smooth(y):
     Diff = y - smoothed  # 差值，即ΔR
     # 绘制原始数据和平滑后的数据
     return smoothed, Diff
-
-
-def plot_academic(data1):
-    fig = plt.figure(figsize=(19.2, 10.8))
 
 
 range = [8, 14]
@@ -85,6 +78,7 @@ b12=[axs[0,1],'(b)',x_inter,    y_diff*1000000,     '-',    '',         'black',
 c11=[axs[1,0],'(c)',x_inv,      y_diff*1000000,     '-',    '',         'black',    '$1/\mu_{0}H\mathrm{(T^{-1})}$','$\mathrm{\Delta M(\mu emu)}$']#1/磁场Δ磁化强度
 c12=[axs[1,0],'(c)',x_inv,      y_diff*1000000,     '-',    '',         'black',    '$1/\mu_{0}H\mathrm{(T^{-1})}$','$\mathrm{\Delta R_{xx}(\mu\Omega)}$']#1/磁场Δ电阻
 d11=[axs[1,1],'(d)',freq,       amp*1000,           '-',    '',         'black',    'Frequency(T)','FFT Amp. (arb.units)',[0,3000],[0,6]]#频率幅值
+#请遵循以下格式，【图层，指标，横轴数据，纵轴数据，曲线的样式，曲线的标签（为空不处理），曲线的颜色，横坐标标签（为空不处理），纵坐标标签（为空不处理），x轴范围（可选），y轴范围（可选）】
 plots=[a11,a21,b11,c11,d11]
 
 for i in plots:
